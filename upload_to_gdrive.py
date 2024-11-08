@@ -16,7 +16,7 @@ drive_service = build('drive', 'v3', credentials=credentials)
 file_metadata = {
     'name': 'website.zip',
     # Replace 'YOUR_FOLDER_ID' with your actual folder ID
-    'parents': ['YOUR_FOLDER_ID']
+    'parents': [https://drive.google.com/drive/folders/1SVkt3dApccibTbPINYla0hcZ9d7sxhX_?usp=sharing]
 }
 
 media = MediaFileUpload('website.zip', mimetype='application/zip')
