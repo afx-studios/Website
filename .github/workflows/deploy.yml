@@ -1,27 +1,36 @@
-{
-    "name": "Deploy to WordPress",
-    "on": {
-        "push": {
-            "branches": ["main"]
-        }
-    },
-    "jobs": {
-        "deploy": {
-            "runs-on": "ubuntu-latest",
-            "steps": [
-                {
-                    "uses": "actions/checkout@v2"
-                },
-                {
-                    "name": "Deploy to WordPress",
-                    "uses": "SamKirkland/FTP-Deploy-Action@4.0.0",
-                    "with": {
-                        "server": "${{ secrets.FTP_SERVER }}",
-                        "username": "${{ secrets.FTP_USERNAME }}",
-                        "password": "${{ secrets.FTP_PASSWORD }}"
-                    }
-                }
-            ]
-        }
-    }
-}
+name: Upload to Google Drive
+
+on:
+  push:
+    branches:
+      - main  # Replace with your deployment branch if different
+
+jobs:
+  upload_to_gdrive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Decode and Save Service Account Credentials
+        run: |
+          echo "${{ secrets.GDRIVE_SERVICE_ACCOUNT }}" | base64 --decode > service_account.json
+
+      - name: Install Google Drive API Client
+        run: |
+          pip install --no-cache-dir google-api-python-client google-auth-httplib2 google-auth-oauthlib
+
+      - name: Compress Files
+        run: |
+          zip -r website.zip . -x ".git/*" ".github/*"
+
+      - name: Upload to Google Drive
+        run: |
+          python upload_to_gdrive.py
+
