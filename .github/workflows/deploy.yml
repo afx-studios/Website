@@ -26,6 +26,9 @@ jobs:
         run: |
           pip install --no-cache-dir google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
+      - name: List Files
+        run: ls -al
+
       - name: Compress Files
         run: |
           zip -r website.zip . -x ".git/*" ".github/*"
