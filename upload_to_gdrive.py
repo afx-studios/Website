@@ -21,7 +21,7 @@ except Exception as e:
 # File metadata
 file_metadata = {
     'name': 'website.zip',
-    'parents': ['YOUR_FOLDER_ID']  # Replace 'YOUR_FOLDER_ID' with the actual Google Drive folder ID
+    'parents': [1SVkt3dApccibTbPINYla0hcZ9d7sxhX_]  # Replace 'YOUR_FOLDER_ID' with the actual Google Drive folder ID
 }
 
 # Check if website.zip exists before upload
