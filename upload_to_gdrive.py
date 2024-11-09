@@ -5,7 +5,6 @@ from googleapiclient.http import MediaFileUpload
 
 print("Starting Google Drive upload process...")
 
-# Authenticate using the service account key
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
 SERVICE_ACCOUNT_FILE = 'service_account.json'
 
@@ -18,21 +17,21 @@ except Exception as e:
     print(f"Failed to authenticate with Google Drive API: {e}")
     exit(1)
 
-# File metadata
-file_metadata = {
-    'name': 'website.zip',
-    'parents': [1SVkt3dApccibTbPINYla0hcZ9d7sxhX_]  # Replace 'YOUR_FOLDER_ID' with the actual Google Drive folder ID
-}
-
 # Check if website.zip exists before upload
 if not os.path.isfile('website.zip'):
     print("Error: website.zip does not exist.")
     exit(1)
+else:
+    print("website.zip found, proceeding with upload.")
+
+file_metadata = {
+    'name': 'website.zip',
+    'parents': [1SVkt3dApccibTbPINYla0hcZ9d7sxhX_]  # Replace with actual folder ID
+}
 
 media = MediaFileUpload('website.zip', mimetype='application/zip')
 
 try:
-    # Upload the file
     file = drive_service.files().create(
         body=file_metadata,
         media_body=media,
